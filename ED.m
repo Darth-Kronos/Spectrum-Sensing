@@ -25,9 +25,8 @@ for k = 1:length(pf)
      r = abs(Ys).^2; % 
      energy = mean(r,1);
      Ted =(2*snr).*sum(energy); % Test Statistic for the energy detection
-     %thresh(m) = (qfuncinv(Pf(m))./sqrt(L))+ 1; % Theoretical value of Threshold
      ted(k) = 2*gammaincinv(1-pf(k),l);
-     if(ted >= Ted(k))  % Check whether the received energy is greater than threshold, if so, increment Pd counter by 1
+     if(Ted >= ted(k))  % Check whether the received energy is greater than threshold, if so, increment Pd counter by 1
          i = i+1;
      end
     end
