@@ -18,10 +18,10 @@ for k = 1:length(pf)
     k
     i = 0;
     for kk=1:10000 % Number of Monte Carlo Simulations
-     n = normrnd(1,sqrt(1/snr),[1,L]); % AWGN noise with variance 1/ snr
-     Y = ys + n; % Received signal
-     Y = reshape(Y,m,l); % Dividing the samples into L segments of M length
-     Ys = fft(Y); % Taking a coloumwise fft of length M
+     noise = normrnd(0,sqrt(1/snr),[1,L]); % AWGN noise with variance 1/ snr
+     Signal = ys + normrnd(0,sqrt(1/snr),[1,L]); % Received signal
+     Signal = reshape(Signal,m,l); % Dividing the samples into L segments of M length
+     Ys = fft(Signal); % Taking a coloumwise fft of length M
      r = abs(Ys).^2; % 
      energy = mean(r,1);
      Ted =(2*snr).*sum(energy); % Test Statistic for the energy detection
