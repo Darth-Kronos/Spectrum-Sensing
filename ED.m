@@ -12,30 +12,25 @@ m = 256;
 ys = 2.*cos(2*pi*fm/fs.*samples) .*cos(2*pi*f0/fs.*samples);
 snr_dB = -22; %SNR in decibels
 snr = 10.^(snr_dB./10); % Linear Value of SNR
-pf = 0.01:0.01:1; % Pf = Probability of False Alarm
+pf = 0:0.01:1; % Pf = Probability of False Alarm
 %% Simulation to plot Probability of Detection (Pd) vs. Probability of False Alarm (Pf) 
-for k = 1:length(pf)
-    k
-    i = 0;
-    for kk=1:10000 % Number of Monte Carlo Simulations
-     noise = normrnd(0,sqrt(1/snr),[1,L]); % AWGN noise with variance 1/ snr
-     Signal = ys + normrnd(0,sqrt(1/snr),[1,L]); % Received signal
-     Signal = reshape(Signal,m,l); % Dividing the samples into L segments of M length
-     Ys = fft(Signal); % Taking a coloumwise fft of length M
-     n = normrnd(0,sqrt(1/snr),[1,L]); % AWGN noise with variance 1/ snr
-     Y = ys + n; % Received signal
-     Y = reshape(Y,m,l); % Dividing the samples into L segments of M length
-     Ys = fft(Y); % Taking a coloumwise fft of length M
-     r = abs(Ys).^2; % 
-     energy = mean(r,1);
-     Ted =(2*snr).*sum(energy); % Test Statistic for the energy detection
-     ted(k) = 2*gammaincinv(1-pf(k),l);
-     if(Ted >= ted(k))  % Check whether the received energy is greater than threshold, if so, increment Pd counter by 1
-         i = i+1;
-     end
-    end
-Pd(k) = i/kk; 
-end
+% for k = 1:length(pf)
+%     k
+%     i = 0;
+%     for kk=1:10000 % Number of Monte Carlo Simulations
+%      noise = normrnd(0,sqrt(1/snr),[1,L]) + ; % AWGN noise with variance 1/ snr
+%      Signal = ys + normrnd(0,sqrt(1/snr),[1,L]); % Received signal
+%      noise_energy = find_energy(noise,m,l,snr);
+%      Signal_energy = find_energy(Signal,m,l,snr);
+%      
+%      ted(k) = 2*gammaincinv(1-pf(k),l);
+%      if(Ted >= ted(k))  % Check whether the received energy is greater than threshold, if so, increment Pd counter by 1
+%          i = i+1;
+%      end
+%     end
+% Pd(k) = i/kk; 
+% end
+thershold = linspace(-sqrt(snr)
 plot(pf, Pd)
 hold on
 %% Theroretical ecpression of Probability of Detection; refer above reference.
