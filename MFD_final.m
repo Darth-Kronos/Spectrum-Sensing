@@ -22,9 +22,12 @@ signal = sqrt(1/snr)*randn(1,L)+ 1i*sqrt(1/snr)*randn(1,L) + zn;
 taumfd_h0 = sum(noise.*zn);    
 taumfd_h1 = sum(signal.*zn);
 thresh = linspace((1/beta),beta,1000);
+pf = zeros(length(gamma),1);
+pd = zeros(length(gamma),1);
 for i = 1:length(thresh)
-    pf = find(taumfd_h0 >= thresh(i));
-    pd = find(taumfd_h1 >= thresh(i));
+    PF = find(taumfd_h0>=thresh(i));
+    PD = find(taumfd_h1>=thresh(i));
+    
 end
 
 
