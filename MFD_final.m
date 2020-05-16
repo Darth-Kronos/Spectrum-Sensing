@@ -17,10 +17,13 @@ x=1;%Uncertainty in noise variance(I chose it randomly)
 beta = 10^(x/10);
 
 %% Simulation to plot Probability of Detection (Pd) vs. Probability of False Alarm (Pf)
-noise = sqrt(1/snr)*randn(1,L) +1i*sqrt(1/snr)*randn(1,L);  
-signal = sqrt(1/snr)*randn(1,L)+ 1i*sqrt(1/snr)*randn(1,L) + zn;
-taumfd_h0 = sum(noise.*zn);    
-taumfd_h1 = sum(signal.*zn);
+for j=1:L
+    noise = sqrt(1/snr)*randn(1,L) +1i*sqrt(1/snr)*randn(1,L);  
+    signal = sqrt(1/snr)*randn(1,L)+ 1i*sqrt(1/snr)*randn(1,L) + zn;
+    taumfd_h0(j) = sum(noise.*zn);    
+    taumfd_h1(j) = sum(signal.*zn);
+end
+
 thresh = linspace((1/beta),beta,1000);
 pf = zeros(length(gamma),1);
 pd = zeros(length(gamma),1);
