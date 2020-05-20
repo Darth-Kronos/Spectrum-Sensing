@@ -17,15 +17,15 @@ obs_H0 = zeros(1,M);
 obs_H1 = zeros(1,M);
 %% simulation
 for i=1:M
-    noise = sqrt(2/snr)*randn(1,L)+i*sqrt(2/snr)*randn(1,L) ; 
-    Signal = sqrt(2/snr)*randn(1,L)+i*sqrt(2/snr)*randn(1,L) + ys;
+    noise = sqrt(1/snr)*randn(1,L)+i*sqrt(1/snr)*randn(1,L) ; 
+    Signal = sqrt(1/snr)*randn(1,L)+i*sqrt(1/snr)*randn(1,L) + ys;
     obs_H0(i) = find_energy(noise,m,l,snr);
     obs_H1(i) = find_energy(Signal,m,l,snr);
 %     obs_H0(i) = find_mfd(noise,ys);
 %     obs_H1(i) = find_mfd(Signal,ys);
 end
 gammamax = max([obs_H0,obs_H1]);
-gammamin = min([obs_H1,obs_H0]);
+gammamin = min([obs_H0,obs_H1]);
 gamma = linspace(gammamin,gammamax,1000);
 pf = zeros(1,length(gamma));
 pd = zeros(1,length(gamma));
