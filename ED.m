@@ -12,29 +12,39 @@ m = 256;
 ys = 2.*cos(2*pi*fm/fs.*samples) .*cos(2*pi*f0/fs.*samples);
 snr_dB = -22; %SNR in decibels
 snr = 10.^(snr_dB./10); % Linear Value of SNR
-pf = 0:0.01:1; % Pf = Probability of False Alarm
-%% Simulation to plot Probability of Detection (Pd) vs. Probability of False Alarm (Pf) 
-% for k = 1:length(pf)
-%     k
-%     i = 0;
-%     for kk=1:10000 % Number of Monte Carlo Simulations
-%      noise = normrnd(0,sqrt(1/snr),[1,L]) + ; % AWGN noise with variance 1/ snr
-%      Signal = ys + normrnd(0,sqrt(1/snr),[1,L]); % Received signal
-%      noise_energy = find_energy(noise,m,l,snr);
-%      Signal_energy = find_energy(Signal,m,l,snr);
-%      
-%      ted(k) = 2*gammaincinv(1-pf(k),l);
-%      if(Ted >= ted(k))  % Check whether the received energy is greater than threshold, if so, increment Pd counter by 1
-%          i = i+1;
-%      end
-%     end
-% Pd(k) = i/kk; 
-% end
-thershold = linspace(-sqrt(snr)
-plot(pf, Pd)
+M = 100000;
+obs_H0 = zeros(1,M);
+obs_H1 = zeros(1,M);
+%% simulation
+for i=1:M
+    noise = sqrt(2/snr)*randn(1,L)+i*sqrt(2/snr)*randn(1,L) ; 
+    Signal = sqrt(2/snr)*randn(1,L)+i*sqrt(2/snr)*randn(1,L) + ys;
+    obs_H0(i) = find_energy(noise,m,l,snr);
+    obs_H1(i) = find_energy(Signal,m,l,snr);
+%     obs_H0(i) = find_mfd(noise,ys);
+%     obs_H1(i) = find_mfd(Signal,ys);
+end
+gammamax = max([obs_H0,obs_H1]);
+gammamin = min([obs_H1,obs_H0]);
+gamma = linspace(gammamin,gammamax,1000);
+pf = zeros(1,length(gamma));
+pd = zeros(1,length(gamma));
+%% probability of false alarm and probability of detection
+for i=1:length(gamma)
+    pf(i) = sum(obs_H0>=gamma(i))/M;
+    pd(i) = sum(obs_H1>=gamma(i))/M;
+end
+plot(pf,pd,'b--o','MarkerIndices',1:5:length(pd))
 hold on
-%% Theroretical ecpression of Probability of Detection; refer above reference.
-Ted = 2*gammaincinv(1-pf,l);
-Pd_the = 1- ncx2cdf(Ted,2*l,m*l*snr/2);
-plot(pf, Pd_the, 'r')
-hold on
+%% Theroretical expression of Probability of Detection
+%%% ED
+pf_the = 0:0.01:1;
+Ted = 2*gammaincinv(1-pf_the,l);
+pd_the = 1- ncx2cdf(Ted,2*l,m*l*snr/2);
+%%% MFD 
+% E = sum(ys.*ys);
+% pf_the = 0:0.01:1;
+% Tmfd = qfuncinv(pf_the).*sqrt(E./snr);
+% pd_the = qfunc((Tmfd - E)./sqrt(E./snr));
+plot(pf_the, pd_the)
+legend('ED','ED Theoretical')
