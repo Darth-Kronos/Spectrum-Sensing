@@ -21,18 +21,16 @@ for i=1:M
     Signal = sqrt(1/snr)*randn(1,L)+i*sqrt(1/snr)*randn(1,L) + ys;
     obs_H0(i) = find_energy(noise,m,l,snr);
     obs_H1(i) = find_energy(Signal,m,l,snr);
-%     obs_H0(i) = find_mfd(noise,ys);
-%     obs_H1(i) = find_mfd(Signal,ys);
 end
 tmax = max([obs_H0,obs_H1]);
 tmin = min([obs_H0,obs_H1]);
-gamma = linspace(tmin,tmax,1000);
-pf = zeros(1,length(gamma));
-pd = zeros(1,length(gamma));
+threshold = linspace(tmin,tmax,1000);
+pf = zeros(1,length(threshold));
+pd = zeros(1,length(threshold));
 %% probability of false alarm and probability of detection
-for i=1:length(gamma)
-    pf(i) = sum(obs_H0>=gamma(i))/M;
-    pd(i) = sum(obs_H1>=gamma(i))/M;
+for i=1:length(threshold)
+    pf(i) = sum(obs_H0>=threshold(i))/M;
+    pd(i) = sum(obs_H1>=threshold(i))/M;
 end
 plot(pf,pd,'b--o','MarkerIndices',1:5:length(pd))
 hold on
