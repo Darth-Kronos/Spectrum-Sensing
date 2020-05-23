@@ -24,9 +24,9 @@ for i=1:M
 %     obs_H0(i) = find_mfd(noise,ys);
 %     obs_H1(i) = find_mfd(Signal,ys);
 end
-gammamax = max([obs_H0,obs_H1]);
-gammamin = min([obs_H0,obs_H1]);
-gamma = linspace(gammamin,gammamax,1000);
+tmax = max([obs_H0,obs_H1]);
+tmin = min([obs_H0,obs_H1]);
+gamma = linspace(tmin,tmax,1000);
 pf = zeros(1,length(gamma));
 pd = zeros(1,length(gamma));
 %% probability of false alarm and probability of detection
