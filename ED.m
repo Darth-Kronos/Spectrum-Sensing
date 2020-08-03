@@ -12,18 +12,22 @@ m = 256;
 ys = 2.*cos(2*pi*fm/fs.*samples) .*cos(2*pi*f0/fs.*samples);
 snr_dB = -22; %SNR in decibels
 snr = 10.^(snr_dB./10); % Linear Value of SNR
-M = 100000;
+M = 10000;
 obs_H0 = zeros(1,M);
 obs_H1 = zeros(1,M);
 %% simulation
 for i=1:M
-    noise = sqrt(1/snr)*randn(1,L)+i*sqrt(1/snr)*randn(1,L) ; 
-    Signal = sqrt(1/snr)*randn(1,L)+i*sqrt(1/snr)*randn(1,L) + ys;
+%     noise = sqrt(1/snr)*randn(1,L)+i*sqrt(1/snr)*randn(1,L) ; 
+%     Signal = sqrt(1/snr)*randn(1,L)+i*sqrt(1/snr)*randn(1,L) + ys;
+    noise = sqrt(1/snr)*randn(1,L);
+    Signal = sqrt(1/snr)*randn(1,L) + ys;
     obs_H0(i) = find_energy(noise,m,l,snr);
     obs_H1(i) = find_energy(Signal,m,l,snr);
+%     obs_H0(i) = find_mfd(noise,ys);
+%     obs_H1(i) = find_mfd(Signal,ys);
 end
-tmax = max([obs_H0,obs_H1]);
-tmin = min([obs_H0,obs_H1]);
+tmax = max(obs_H1);
+tmin = min(obs_H0);
 threshold = linspace(tmin,tmax,1000);
 pf = zeros(1,length(threshold));
 pd = zeros(1,length(threshold));
