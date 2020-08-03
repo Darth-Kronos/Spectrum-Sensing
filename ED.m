@@ -20,14 +20,14 @@ for i=1:M
 %     noise = sqrt(1/snr)*randn(1,L)+i*sqrt(1/snr)*randn(1,L) ; 
 %     Signal = sqrt(1/snr)*randn(1,L)+i*sqrt(1/snr)*randn(1,L) + ys;
     noise = sqrt(1/snr)*randn(1,L);
-    Signal = sqrt(1/snr)*randn(1,L) + ys;
+    Signal = noise + ys;
     obs_H0(i) = find_energy(noise,m,l,snr);
     obs_H1(i) = find_energy(Signal,m,l,snr);
 %     obs_H0(i) = find_mfd(noise,ys);
 %     obs_H1(i) = find_mfd(Signal,ys);
 end
 tmax = max(obs_H1);
-tmin = min(obs_H0);
+tmin = min(obs_H1);
 threshold = linspace(tmin,tmax,1000);
 pf = zeros(1,length(threshold));
 pd = zeros(1,length(threshold));
