@@ -17,16 +17,12 @@ obs_H0 = zeros(1,M);
 obs_H1 = zeros(1,M);
 %% simulation
 for i=1:M
-%     noise = sqrt(1/snr)*randn(1,L)+i*sqrt(1/snr)*randn(1,L) ; 
-%     Signal = sqrt(1/snr)*randn(1,L)+i*sqrt(1/snr)*randn(1,L) + ys;
     noise = sqrt(1/snr)*randn(1,L);
     Signal = sqrt(1/snr)*randn(1,L) + ys;
-    obs_H0(i) = find_energy(noise,m,l,snr);
-    obs_H1(i) = find_energy(Signal,m,l,snr);
-%     obs_H0(i) = find_mfd(noise,ys);
-%     obs_H1(i) = find_mfd(Signal,ys);
+    obs_H0(i) = find_energy_time(noise);
+    obs_H1(i) = find_energy_time(Signal);
 end
-tmax = max(obs_H1);
+tmax = max(obs_H0);
 tmin = min(obs_H0);
 threshold = linspace(tmin,tmax,1000);
 pf = zeros(1,length(threshold));
@@ -41,8 +37,8 @@ hold on
 %% Theroretical expression of Probability of Detection
 %%% ED
 pf_the = 0:0.01:1;
-Ted = 2*gammaincinv(1-pf_the,l);
-pd_the = 1- ncx2cdf(Ted,2*l,m*l*snr/2);
+Ted = (sqrt(2*L).*qfuncinv(pf_the) + L)./snr;
+pd_the = qfunc((Ted-L*(1+1/snr))/(sqrt(2*L)*(1+1/snr)));
 %%% MFD 
 % E = sum(ys.*ys);
 % pf_the = 0:0.01:1;
@@ -60,3 +56,6 @@ hold on
 histogram(obs_H1,binedges);
 legend("h0","h1")
 hold off
+function energy = find_energy_time(signal)
+    energy = sum(signal.^2);
+end
