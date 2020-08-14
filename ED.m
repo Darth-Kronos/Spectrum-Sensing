@@ -26,7 +26,7 @@ for i=1:M
 %     obs_H0(i) = find_mfd(noise,ys);
 %     obs_H1(i) = find_mfd(Signal,ys);
 end
-tmax = max(obs_H0);
+tmax = max(obs_H1);
 tmin = min(obs_H0);
 threshold = linspace(tmin,tmax,1000);
 pf = zeros(1,length(threshold));
