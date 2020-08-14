@@ -1,7 +1,7 @@
 clc
 close all
 clear all
-samples = 0:1/8191:1;
+samples = 0:8191;
 fs = 4000;
 L = 8192;
 ts = 1/fs;
@@ -9,33 +9,45 @@ fm = 16;
 f0 = 512;
 l = 32;
 m = 256;
-zn = 2.*cos(2*pi*fm.*samples) .*cos(2*pi*f0.*samples);
-snr_dB = -22;% SNR in decibels
+ys = 2.*cos(2*pi*fm/fs.*samples) .*cos(2*pi*f0/fs.*samples);
+snr_dB = -22; %SNR in decibels
 snr = 10.^(snr_dB./10); % Linear Value of SNR
-
-x=1;%Uncertainty in noise variance(I chose it randomly)
-beta = 10^(x/10);
-
-%% Simulation to plot Probability of Detection (Pd) vs. Probability of False Alarm (Pf)
-for j=1:L
-    noise = sqrt(1/snr)*randn(1,L) +1i*sqrt(1/snr)*randn(1,L);  
-    signal = sqrt(1/snr)*randn(1,L)+ 1i*sqrt(1/snr)*randn(1,L) + zn;
-    taumfd_h0(j) = sum(noise.*zn);    
-    taumfd_h1(j) = sum(signal.*zn);
+M = 10000;
+obs_H0 = zeros(1,M);
+obs_H1 = zeros(1,M);
+%% simulation
+for i=1:M
+    noise = sqrt(1/snr)*randn(1,L);
+    Signal = sqrt(1/snr)*randn(1,L) + ys;
+    obs_H0(i) = find_mfd(noise,ys);
+    obs_H1(i) = find_mfd(Signal,ys);
 end
-
-thresh = linspace((1/beta),beta,1000);
-pf = zeros(length(gamma),1);
-pd = zeros(length(gamma),1);
-for i = 1:length(thresh)
-    PF = find(taumfd_h0>=thresh(i));
-    PD = find(taumfd_h1>=thresh(i));
-    
+tmax = max(obs_H1);
+tmin = min(obs_H0);
+threshold = linspace(tmin,tmax,1000);
+pf = zeros(1,length(threshold));
+pd = zeros(1,length(threshold));
+%% probability of false alarm and probability of detection
+for i=1:length(threshold)
+    pf(i) = sum(obs_H0>=threshold(i))/M;
+    pd(i) = sum(obs_H1>=threshold(i))/M;
 end
-
-
-%% Theoritical plot
-
-
-
-
+plot(pf,pd,'b--o','MarkerIndices',1:5:length(pd))
+hold on
+%% Theroretical expression of Probability of Detection
+E = sum(ys.*ys);
+pf_the = 0:0.01:1;
+Tmfd = qfuncinv(pf_the).*sqrt(E./snr);
+pd_the = qfunc((Tmfd - E)./sqrt(E./snr));
+plot(pf_the, pd_the)
+legend('MFD','MFD Theoretical')
+figure("Name","Histogram");
+thresh_low = tmin;
+thresh_hi  = tmax;
+nbins = 100;
+binedges = linspace(thresh_low,thresh_hi,nbins);
+histogram(obs_H0,binedges);
+hold on
+histogram(obs_H1,binedges);
+legend("h0","h1")
+hold off
