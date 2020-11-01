@@ -59,3 +59,43 @@ binedges = linspace(thresh_low,thresh_hi,nbins);
 histogram(obs_H0,binedges);
 histogram(obs_H1,binedges);
 legend("h0","h1")
+
+
+
+
+
+
+
+
+
+
+
+
+tmax = 1;
+tmin = -3.5;
+threshold = linspace(tmin,tmax,1000);
+pf = zeros(1,length(threshold));
+pd = zeros(1,length(threshold));
+%% Probability of false alarm and probability of detection
+
+for i=1:length(threshold)
+    y_estimate = data_roc(:,(1:3)) * w0 + threshold(i) >= 0;
+    pd(i) = mean(y_estimate == data_roc(:,4));
+    qwe = zeros(1,size(data_set,1));y = data_roc(:,4);
+    for j = 1:size(data_set,1)
+        qwe(j) =  y(j) == 0 && y_estimate(j) == 1;
+    end
+    pf(i) = mean(qwe);
+end
+figure('Name','pd_vs_pfa');
+gscatter(pf,pd);
+
+
+
+
+
+
+
+
+
+
