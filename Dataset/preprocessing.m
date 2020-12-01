@@ -1,7 +1,6 @@
-load('./Dataset/dataset_1.mat')
-avg_data = Pd_rawData(:,1);
-data = (avg_data - mean(avg_data))./sqrt(var(avg_data));
-snr = 10^(-18/10); % snr = -18 dB
+function data_set = preprocessing(raw_data,snr_db)
+data = (raw_data - mean(raw_data))./sqrt(var(raw_data));
+snr = 10^(snr_db/10);
 N = length(data);
 M = 25000;
 data_set = zeros(2*M,2);
@@ -16,10 +15,6 @@ for i =1:M
     
     data_set(i,2) = 1;
     data_set(i+M,2) = 0;
-    
-    disp(i);
 end
 
 data_set = data_set(randperm(size(data_set, 1)), :);
-
-save('./Dataset/features_db_1_18.mat','data_set');
