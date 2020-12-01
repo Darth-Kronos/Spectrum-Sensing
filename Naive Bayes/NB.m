@@ -1,10 +1,10 @@
 clear all
-load('./SVM/data_set_10.mat');
+load('./Dataset/features.mat');
 train_X = data_set(:,1);
-train_Y = data_set(:,4);
+train_Y = data_set(:,2);
 % load('test.mat');
 test_X = data_set(:,1);
-test_Y = data_set(:,4);
+test_Y = data_set(:,2);
 p = 0:0.001:1;
 pf = zeros(1,length(p));
 pd = zeros(1,length(p));
@@ -19,5 +19,5 @@ for i=1:length(p)
     pe(i) = p(i)*pf(i) + (1-p(i))*(1-pd(i));
 end
 
-plot(p,pe)
+plot(pf,pd)
 xlabel('Prior Probability');ylabel('Probability of Error');
