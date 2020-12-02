@@ -1,5 +1,5 @@
 clear all
-load('./Dataset/features.mat');
+load('./Dataset/features_db_1_18.mat');
 train_X = data_set(:,1);
 train_Y = data_set(:,2);
 % load('test.mat');
