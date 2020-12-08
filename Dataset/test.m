@@ -14,12 +14,12 @@ for i=1:length(snr_db)
     for j=1:length(p)
         cost = [0 p(j); 1-p(j) 0];
 %         model = fitcnb(Ptrain,Ttrain,'cost',cost);
-        model = fitcknn(train_x,train_y,'cost',cost,'NumNeighbors',15);
+        model = fitcknn(train_x,train_y,'cost',cost,'NumNeighbors',25);
         y = predict(model,test_x);
-        pf = sum(logical(y) & ~logical(test_y))/(length(test_y)-sum(test_y));
+        pf = sum(logical(y) & ~logical(test_y))/(length(test_y)-sum(test_y))
         p_d = dot(y,test_y)/sum(test_y);
 %         pe(i) = p(i)*pf(i) + (1-p(i))*(1-pd(i));
-        if(pf >= 0.1 && pf <=0.15)
+        if(pf <=0.15)
           pd(i) = p_d;
           break
         end
