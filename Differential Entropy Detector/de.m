@@ -11,7 +11,7 @@ l = 32;
 m = 256;
 
 ys = 2.*cos(2*pi*fm/fs.*samples) .*cos(2*pi*f0/fs.*samples);
-snr_dB = -22; %SNR in decibels
+snr_dB = -18; %SNR in decibels
 snr = 10.^(snr_dB./10); % Linear Value of SNR
 beta = 1;
 M = 10000;
@@ -22,8 +22,8 @@ obs_H11 = zeros(1,M);
 %% Monte carlo simulation
 
 for i=1:M
-    noise = sqrt(1/snr)*randn(1,L);
-    Signal = sqrt(1/snr)*randn(1,L) + ys;
+    noise = (1/sqrt(snr))*ggnoise(1,L,1,beta);
+    Signal = (1/sqrt(snr))*ggnoise(1,L,1,beta) + ys;
     obs_H0(i) = find_de(noise,beta);
     obs_H1(i) = find_de(Signal,beta);
     obs_H01(i) = find_energy(noise,snr);
