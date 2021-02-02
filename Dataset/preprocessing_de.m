@@ -13,8 +13,10 @@ for i =1:M
     data_set(i,1) = obs_H0;
     data_set(i+M,1) = obs_H1;
     
-    data_set(i,2) = 1;
-    data_set(i+M,2) = 0;
+    data_set(i,2) = 0;
+    data_set(i+M,2) = 1;
 end
-
-data_set = data_set(randperm(size(data_set, 1)), :);
+col_data_set = data_set(:,1);
+col_data_set = rescale(col_data_set);
+data_set_temp = [col_data_set data_set(:,2)];
+data_set = data_set_temp(randperm(size(data_set_temp, 1)), :);
