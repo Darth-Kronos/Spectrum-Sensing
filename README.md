@@ -8,10 +8,10 @@ Through experimental results based on real-world captured datasets, we show that
 ## Datasets :
 
 Dataset 1
-The centre frequency of the PU was set at $2.48$ GHz. The primary transmitter deploys a differential quadrature phase shift keying modulation with a continuous transmission rate of $500$ kbps and has a tranmission bandwidth of $1$ MHz. The data measurement was carried out in an anechoic chamber with a scan bandwidth of $4$ MHz, which uses a discrete Fourier transform of $1024$ frequency bins. Therefore, the bandwidth of each frequency bin is $3.9$ kHz. To this clean signal, generalized Gaussian noise was added with a given parameter $\beta$ and unit variance, which serves as a real-world data that is received by the deployed CR nodes.
+The centre frequency of the PU was set at 2.48 GHz. The primary transmitter deploys a differential quadrature phase shift keying modulation with a continuous transmission rate of 500 kbps and has a tranmission bandwidth of 1 MHz. The data measurement was carried out in an anechoic chamber with a scan bandwidth of 4 MHz, which uses a discrete Fourier transform of 1024 frequency bins. Therefore, the bandwidth of each frequency bin is 3.9 kHz. To this clean signal, generalized Gaussian noise was added with a given parameter beta and unit variance, which serves as a real-world data that is received by the deployed CR nodes.
 
 Dataset 2 
-This dataset was captured in a laboratory in Thailand \cite{dataset2}. The dataset was recorded by an omnidirectional antenna connected to the RF Explorer spectrum analyzer. The operating frequency range is $510$ to $790$ MHz, with a center frequency of $650$ MHz. The measurements were taken in three different locations, with both indoor and outdoor environments. We have used data with the highest signal-to-noise ratio (SNR) for our experimental study.
+This dataset was captured in a laboratory in Thailand. The dataset was recorded by an omnidirectional antenna connected to the RF Explorer spectrum analyzer. The operating frequency range is 510 to 790 MHz, with a center frequency of 650 MHz. The measurements were taken in three different locations, with both indoor and outdoor environments. We have used data with the highest signal-to-noise ratio (SNR) for our experimental study.
 
 ## System Model :
 
@@ -46,8 +46,9 @@ We show that the combination of features - Differential Entropy, Geometric Power
 <img width="483" alt="image" src="https://user-images.githubusercontent.com/44093589/126903857-d6dc241b-5d5a-4dd7-bee1-637c5ac396d8.png">
 
 ## Publications :
-https://ieeexplore.ieee.org/document/9419447
-
+[P. Saravanan, S. S. Chandra, A. Upadhye and S. Gurugopinath, ”A Supervised Learning Approach for Differential Entropy Feature-based Spectrum Sensing,” Proc. International Conference on Wireless Communications, Signal Processing and Networking (WiSPNET), Chennai, India, Mar. 2021.](https://ieeexplore.ieee.org/document/9419447)
+  
+A. Upadhye, P. Saravanan, S. S. Chandra and S. Gurugopinath, ”A Survey on Machine Learning Algorithms for Applications in Cognitive Radio Networks,” Proc. International Conference on Electronics, Computing and Communication Technologies(CONECCT), Bengaluru, India, Jul. 2021.(In review)
 https://arxiv.org/abs/2106.10413
 
 If you use the our code and/or system model with proposed features, please cite the above publications.
