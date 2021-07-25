@@ -45,3 +45,16 @@ We show that the combination of features - Differential Entropy, Geometric Power
 <img width="531" alt="image" src="https://user-images.githubusercontent.com/44093589/126903841-fa6bef53-b30d-45c0-823e-5be0e0981a25.png">
 <img width="483" alt="image" src="https://user-images.githubusercontent.com/44093589/126903857-d6dc241b-5d5a-4dd7-bee1-637c5ac396d8.png">
 
+## Publications :
+https://ieeexplore.ieee.org/document/9419447
+
+https://arxiv.org/abs/2106.10413
+
+If you use the our code and/or system model with proposed features, please cite the above publications.
+
+## Authors :
+[Shreeram Suresh Chandra](https://www.linkedin.com/in/shreeram-chandra/)
+
+[Purushothaman Saravanan](https://www.linkedin.com/in/purushothaman-s-yadav/)
+
+[Akshay Upadhye](https://www.linkedin.com/in/akshay-upadhye-44539a157/)
