@@ -51,7 +51,7 @@ We show that the combination of features - Differential Entropy, Geometric Power
 A. Upadhye, P. Saravanan, S. S. Chandra and S. Gurugopinath, ”A Survey on Machine Learning Algorithms for Applications in Cognitive Radio Networks,” Proc. International Conference on Electronics, Computing and Communication Technologies(CONECCT), Bengaluru, India, Jul. 2021.(In review)
 https://arxiv.org/abs/2106.10413
 
-If you use the our code and/or system model with proposed features, please cite the above publications.
+If you use our code and/or system model with proposed features, please cite the above publications.
 
 ## Authors :
 [Shreeram Suresh Chandra](https://www.linkedin.com/in/shreeram-chandra/)
