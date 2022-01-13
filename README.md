@@ -50,7 +50,7 @@ We show that the combination of features - Differential Entropy, Geometric Power
   
 [A. Upadhye, P. Saravanan, S. S. Chandra and S. Gurugopinath, ”A Survey on Machine Learning Algorithms for Applications in Cognitive Radio Networks,” Proc. International Conference on Electronics, Computing and Communication Technologies(CONECCT), Bengaluru, India, Jul. 2021.](https://ieeexplore.ieee.org/document/9622610)
 
-S. S. Chandra, A. Upadhye, P. Saravanan, S. Gurugopinath and R. Muralishankar, "Deep Neural Network Architectures for Spectrum Sensing Using Signal Processing Features," Proc. IEEE International Conference on Distributed Computing, VLSI, Electrical Circuits and Robotics (DISCOVER), Nitte, India, Nov. 2021. (In press)
+[S. S. Chandra, A. Upadhye, P. Saravanan, S. Gurugopinath and R. Muralishankar, "Deep Neural Network Architectures for Spectrum Sensing Using Signal Processing Features," Proc. IEEE International Conference on Distributed Computing, VLSI, Electrical Circuits and Robotics (DISCOVER), Nitte, India, Nov. 2021.](https://ieeexplore.ieee.org/document/9663583)
 
 If you use our code and/or system model with proposed features, please cite the above publications.
 
